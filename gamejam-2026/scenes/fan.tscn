@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://b36xo2b0ufpe8"]
+
+[ext_resource type="Texture2D" uid="uid://crsukd6ncjuin" path="res://assets/fan_sprites-Sheet.png" id="1_8vgsl"]
+[ext_resource type="Script" uid="uid://jqxonn7ylp8i" path="res://scripts/fan.gd" id="1_h3fxe"]
+[ext_resource type="Texture2D" uid="uid://cj7bjbvp7hxlp" path="res://assets/wind_sprites.png" id="3_3ml7w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e61wf"]
+size = Vector2(12, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7l2ec"]
+atlas = ExtResource("1_8vgsl")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ml7w"]
+atlas = ExtResource("1_8vgsl")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tc01m"]
+atlas = ExtResource("1_8vgsl")
+region = Rect2(32, 0, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e7xw2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7l2ec")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ml7w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tc01m")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xhi1y"]
+size = Vector2(32, 32)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_3ml7w"]
+particles_animation = true
+particles_anim_h_frames = 16
+particles_anim_v_frames = 1
+particles_anim_loop = true
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3ml7w"]
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+anim_speed_min = 0.5
+anim_speed_max = 0.5
+
+[node name="fan" type="StaticBody2D" unique_id=474217715 groups=["time_affected"]]
+collision_layer = 2
+script = ExtResource("1_h3fxe")
+
+[node name="fan_coll" type="CollisionShape2D" parent="." unique_id=988694154]
+position = Vector2(2, 0)
+shape = SubResource("RectangleShape2D_e61wf")
+
+[node name="fan_sprite" type="AnimatedSprite2D" parent="." unique_id=807905142]
+sprite_frames = SubResource("SpriteFrames_e7xw2")
+autoplay = "default"
+frame = 2
+frame_progress = 0.18151526
+
+[node name="wind_timer" type="Timer" parent="." unique_id=603780908]
+
+[node name="wind_zone" type="Area2D" parent="." unique_id=1645331313]
+gravity_space_override = 1
+
+[node name="wind_coll" type="CollisionShape2D" parent="wind_zone" unique_id=567511315]
+shape = SubResource("RectangleShape2D_xhi1y")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="wind_zone" unique_id=270430005]
+material = SubResource("CanvasItemMaterial_3ml7w")
+amount = 2
+amount_ratio = 0.5
+texture = ExtResource("3_3ml7w")
+process_material = SubResource("ParticleProcessMaterial_3ml7w")
+
+[connection signal="body_entered" from="wind_zone" to="." method="_on_wind_zone_body_entered"]
+[connection signal="body_exited" from="wind_zone" to="." method="_on_wind_zone_body_exited"]

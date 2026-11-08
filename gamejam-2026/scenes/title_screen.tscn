@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://bwhwrdi7tvfvb"]
+
+[ext_resource type="Script" uid="uid://buug3mpcwobdu" path="res://scripts/title_screen.gd" id="1_v6p8y"]
+
+[node name="title_screen" type="MarginContainer" unique_id=2145256068]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v6p8y")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1704813250]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer" unique_id=172415688]
+layout_mode = 2
+
+[node name="start" type="Button" parent="CenterContainer/HBoxContainer" unique_id=1764865269]
+layout_mode = 2
+text = "Start"
+
+[node name="quit" type="Button" parent="CenterContainer/HBoxContainer" unique_id=856654625]
+layout_mode = 2
+text = "Quit"
+
+[connection signal="pressed" from="CenterContainer/HBoxContainer/start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="CenterContainer/HBoxContainer/quit" to="." method="_on_quit_pressed"]

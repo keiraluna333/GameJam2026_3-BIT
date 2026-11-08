@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://d2kc1tbxsq681"]
+
+[ext_resource type="Script" uid="uid://da2w58lf6b6uf" path="res://scripts/node_2d.gd" id="1_6vqwg"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xmihv"]
+load_path = "res://.godot/imported/laser_spritest.png-46b09e98aa6dec94d386d80a86ca3c20.ctex"
+
+[sub_resource type="Animation" id="Animation_7vci3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("beam:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_xw5cg"]
+resource_name = "laser"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("beam:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_roivt"]
+_data = {
+&"RESET": SubResource("Animation_7vci3"),
+&"laser": SubResource("Animation_xw5cg")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e7xw2"]
+size = Vector2(32, 2)
+
+[node name="laser" type="Node2D" unique_id=797772222 groups=["time_affected"]]
+script = ExtResource("1_6vqwg")
+
+[node name="beam" type="Sprite2D" parent="." unique_id=1966390087]
+texture_repeat = 2
+texture = SubResource("CompressedTexture2D_xmihv")
+hframes = 4
+region_enabled = true
+region_rect = Rect2(0, 0, 128, 16)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=109255676]
+libraries/ = SubResource("AnimationLibrary_roivt")
+autoplay = &"laser"
+
+[node name="Area2D" type="Area2D" parent="." unique_id=660106656]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1916318608]
+shape = SubResource("RectangleShape2D_e7xw2")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

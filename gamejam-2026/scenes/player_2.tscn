@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://bwof1rsxxjei3"]
+
+[ext_resource type="Script" uid="uid://4c64ns7a2qwe" path="res://scripts/player_2.gd" id="1_8xjnt"]
+[ext_resource type="Texture2D" uid="uid://dfgcnd8oip2va" path="res://assets/p2_sprites.png" id="1_wkcja"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e7xw2"]
+size = Vector2(9, 15)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8xjnt"]
+atlas = ExtResource("1_wkcja")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ufh5k"]
+atlas = ExtResource("1_wkcja")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1hlws"]
+atlas = ExtResource("1_wkcja")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x3sgo"]
+atlas = ExtResource("1_wkcja")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ryqyf"]
+atlas = ExtResource("1_wkcja")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e61wf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8xjnt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ufh5k")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1hlws")
+}],
+"loop": 1,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x3sgo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ryqyf")
+}],
+"loop": 1,
+"name": &"run",
+"speed": 5.0
+}]
+
+[node name="player_2" type="CharacterBody2D" unique_id=480874606 groups=["players"]]
+collision_mask = 3
+script = ExtResource("1_8xjnt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2143776657]
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_e7xw2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=988994647]
+sprite_frames = SubResource("SpriteFrames_e61wf")
+animation = &"jump"
