@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b1cqs7w3s5ray"]
 
-[ext_resource type="Script" uid="uid://o7sfh05sjpih" path="res://scenes/button.gd" id="1_rhj8v"]
+[ext_resource type="Script" uid="uid://o7sfh05sjpih" path="res://button.gd" id="1_rhj8v"]
 [ext_resource type="Texture2D" uid="uid://c8t3cv6mlfqyt" path="res://assets/button_sprites.png" id="2_3q610"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e61wf"]

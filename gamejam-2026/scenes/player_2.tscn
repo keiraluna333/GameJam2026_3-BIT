@@ -6,10 +6,6 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e7xw2"]
 size = Vector2(9, 15)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8xjnt"]
-atlas = ExtResource("1_wkcja")
-region = Rect2(32, 0, 16, 16)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_ufh5k"]
 atlas = ExtResource("1_wkcja")
 region = Rect2(48, 0, 16, 16)
@@ -29,9 +25,6 @@ region = Rect2(16, 0, 16, 16)
 [sub_resource type="SpriteFrames" id="SpriteFrames_e61wf"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8xjnt")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ufh5k")
 }],
@@ -69,4 +62,3 @@ shape = SubResource("RectangleShape2D_e7xw2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=988994647]
 sprite_frames = SubResource("SpriteFrames_e61wf")
-animation = &"jump"

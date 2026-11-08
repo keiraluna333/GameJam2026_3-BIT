@@ -8,9 +8,10 @@ extends Node2D
 @onready var button_container = $buttons 
 @onready var laser_container = $lasers
 @onready var camera: Camera2D = $Camera2D
+@onready var heart1: AnimatedSprite2D = $heart1
+@onready var heart2: AnimatedSprite2D = $heart2
 @export var p1_spawn_points: Array[Marker2D] = []
 @export var p2_spawn_points: Array[Marker2D] = []
-
 
 var p1_current_spawn
 var p2_current_spawn
@@ -21,6 +22,10 @@ var offset: float = 8.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	heart1.visible = false
+	heart2.visible = false
+	$sunset.visible = false
+	$ending.visible = false
 	current_dist = (p1.position).distance_to(p2.position)
 	for child in p1_spawns_container.get_children():
 		if child is Marker2D:
@@ -48,6 +53,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	distance = (p1.position).distance_to(p2.position)
+
 	if distance != current_dist:
 		current_dist = distance
 		GameManager.time_scale = -0.015 * current_dist + 4
@@ -68,10 +74,14 @@ func _on_player_died():
 	spawn_players()
 	
 func _on_teleport_teleporting():
+	spawn_index += 1
 	for laser in laser_container.get_children():
 		laser.turn_on()
-	camera.position.x += 320
-	spawn_index += 1
+	if spawn_index == 5:
+		camera.position = Vector2(0, -184.0)
+	else:
+		camera.position.x += 320
+		
 	p1_current_spawn = p1_spawn_points[spawn_index].position
 	p2_current_spawn = p2_spawn_points[spawn_index].position
 	spawn_players()
@@ -81,3 +91,19 @@ func _on_teleport_teleporting():
 func _on_any_button_pressed():
 	for laser in laser_container.get_children():
 		laser.turn_off()
+
+func _on_end_body_entered(body: Node2D) -> void:
+	if body.is_in_group("players"):
+		heart1.visible = true
+		heart2.visible = true
+		heart1.play("default")
+		heart2.play("default")
+		$ending_timer.start()
+
+func _on_ending_timer_timeout() -> void:
+	$AnimationPlayer.play("ending")
+	$sunset.visible = true
+	$ending.visible = true
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	get_tree().change_scene_to_file("res://scenes/title_screen.tscn")

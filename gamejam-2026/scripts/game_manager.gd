@@ -2,7 +2,7 @@ extends Node
 
 var time_scale: float = 1.0
 var player_speed: float = 60.0
-var player_jump_vel = -140
+var player_jump_vel = -160
 
 func change_time():
 	if time_scale > 4:
